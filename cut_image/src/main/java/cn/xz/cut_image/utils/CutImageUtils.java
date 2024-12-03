@@ -44,9 +44,6 @@ public class CutImageUtils {
 
     static Visualize visualize = new Visualize();
 
-
-
-
     static CutImageInterface mCutImageInterface;
 
     public static void onImageChanged(Bitmap image, Context context,CutImageInterface cutImageInterface) {
@@ -69,6 +66,11 @@ public class CutImageUtils {
         }).start();
     }
 
+    /**
+     * 动态设置背景颜色，一定要在onImageChanged方法之前才有效果*/
+    public static void setBgColor(String c){
+        color = c;
+    }
 
     /**
      * 设置背景*/
@@ -87,11 +89,11 @@ public class CutImageUtils {
         boolean settingsChanged = false;
         String model_path = sharedPreferences.getString(mContext.getString(R.string.MODEL_PATH_KEY), mContext.getString(R.string.MODEL_PATH_DEFAULT));
         String label_path = sharedPreferences.getString(mContext.getString(R.string.LABEL_PATH_KEY), mContext.getString(R.string.LABEL_PATH_DEFAULT));
-        String image_path = sharedPreferences.getString(mContext.getString(R.string.IMAGE_PATH_KEY), mContext.getString(R.string.IMAGE_PATH_DEFAULT));
+        //String image_path = sharedPreferences.getString(mContext.getString(R.string.IMAGE_PATH_KEY), mContext.getString(R.string.IMAGE_PATH_DEFAULT));
         String bg_path = sharedPreferences.getString(mContext.getString(R.string.BG_PATH_KEY), mContext.getString(R.string.BG_PATH_DEFAULT));
         settingsChanged |= !model_path.equalsIgnoreCase(config.modelPath);
         settingsChanged |= !label_path.equalsIgnoreCase(config.labelPath);
-        settingsChanged |= !image_path.equalsIgnoreCase(config.imagePath);
+        //settingsChanged |= !image_path.equalsIgnoreCase(config.imagePath);
         settingsChanged |= !bg_path.equalsIgnoreCase(config.bgPath);
         int cpu_thread_num = Integer.parseInt(sharedPreferences.getString(mContext.getString(R.string.CPU_THREAD_NUM_KEY), mContext.getString(R.string.CPU_THREAD_NUM_DEFAULT)));
         settingsChanged |= cpu_thread_num != config.cpuThreadNum;
@@ -110,7 +112,7 @@ public class CutImageUtils {
         }
 
         if (settingsChanged) {
-            config.init(model_path, label_path, image_path, bg_path, cpu_thread_num, cpu_power_mode, input_color_format, input_shape);
+            config.init(model_path, label_path, "", bg_path, cpu_thread_num, cpu_power_mode, input_color_format, input_shape);
             preprocess.init(config);
             // 如果配置发生改变则重新加载模型并预测
             loadModel();

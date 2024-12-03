@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        CutImageUtils.setBgColor("#000000");
     }
 
 
