@@ -75,9 +75,6 @@ public class MainActivity extends AppCompatActivity {
                         ContentResolver resolver = getContentResolver();
                         Uri uri = data.getData();
                         Bitmap image = MediaStore.Images.Media.getBitmap(resolver, uri);
-                        String[] proj = {MediaStore.Images.Media.DATA};
-                        Cursor cursor = managedQuery(uri, proj, null, null, null);
-                        cursor.moveToFirst();
                         CutImageUtils.onImageChanged(image, this, new CutImageUtils.CutImageInterface() {
                             @Override
                             public void back(Bitmap outputImage, Bitmap inputImage, String time) {

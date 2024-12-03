@@ -44,8 +44,7 @@ public class Preprocess {
             } else if (config.inputColorFormat.equalsIgnoreCase("BGR")) {
                 channelIdx = new int[]{2, 1, 0};
             } else {
-                Log.i(TAG, "unknown color format " + config.inputColorFormat + ", only RGB and BGR color format is " +
-                        "supported!");
+                Log.e("手撕TAG", "手撕handleMessage: 识别失败22222");
                 return false;
             }
             int[] channelStride = new int[]{width * height, width * height * 2};
@@ -69,8 +68,7 @@ public class Preprocess {
                 }
             }
         } else {
-            Log.i(TAG, "unsupported channel size " + Integer.toString(channels) + ",  only channel 1 and 3 is " +
-                    "supported!");
+            Log.e("手撕TAG", "手撕handleMessage: 识别失败1111");
             return false;
         }
         return true;
