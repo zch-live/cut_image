@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -29,6 +30,8 @@ public class CutImageUtils {
     private static String color = "#FFFFFF";
     //背景图片
     private static Bitmap backBitmap;
+    //返回透明背景
+    private static Boolean transparent = false;
 
     protected static Predictor predictor = new Predictor();
 
@@ -70,6 +73,13 @@ public class CutImageUtils {
      * 动态设置背景颜色，一定要在onImageChanged方法之前才有效果*/
     public static void setBgColor(String c){
         color = c;
+    }
+
+    /**
+     * 设置返回透明背景，一定要在onImageChanged方法之前才有效果*/
+    public static void setTransparent(){
+        color = "#FFE4C4";
+        transparent = true;
     }
 
     /**
@@ -136,7 +146,7 @@ public class CutImageUtils {
     }
 
     public static boolean onRunModel() {
-        return predictor.isLoaded() && predictor.runModel(preprocess, visualize);
+        return predictor.isLoaded() && predictor.runModel(preprocess, visualize,transparent);
     }
 
     public static void loadModel() {

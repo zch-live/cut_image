@@ -2,8 +2,11 @@ package cn.xz.cut_image.visual;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 
 import com.baidu.paddle.lite.Tensor;
 
@@ -53,7 +56,7 @@ public class Visualize {
         return bmOverlay;
     }
 
-    public Bitmap draw(Bitmap inputImage, Tensor outputTensor,Bitmap bg){
+    public Bitmap draw(Bitmap inputImage, Tensor outputTensor,Bitmap bg,Boolean transparent){
         float[] output = outputTensor.getFloatData();
         long outputShape[] = outputTensor.shape();
         int outputSize = 1;
@@ -74,6 +77,11 @@ public class Visualize {
 
         //重新合成图像
         Bitmap result = synthetizeBitmap(inputImage,bgImg, alpha);
+        if (transparent){
+            //是否需要返回透明背景
+            result = makeTransparent(result);
+        }
+
         return result;
     }
 
@@ -145,5 +153,37 @@ public class Visualize {
         }
         result.setPixels(frontPixels,0,width,0,0,width,height);;
         return result;
+    }
+
+    /**
+     * 将给定的Bitmap设置成透明
+     * @param bitmap 要处理的Bitmap
+     * @return 透明的Bitmap
+     */
+    public static Bitmap makeTransparent(Bitmap bitmap) {
+
+        // 创建一个可变的副本
+        Bitmap mutableBitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true);
+
+        // 获取位图的宽度和高度
+        int width = mutableBitmap.getWidth();
+        int height = mutableBitmap.getHeight();
+
+        // 遍历每一个像素
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                // 获取当前像素的颜色
+                int pixel = mutableBitmap.getPixel(x, y);
+                if (pixel == Color.parseColor("#FFE4C4")){
+                    // 将颜色中的Alpha通道设置为0（完全透明）
+                    pixel = Color.argb(0, Color.red(pixel), Color.green(pixel), Color.blue(pixel));
+                }
+
+                // 设置新的像素值
+                mutableBitmap.setPixel(x, y, pixel);
+            }
+        }
+
+        return mutableBitmap;
     }
 }

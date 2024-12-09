@@ -194,7 +194,7 @@ public class Predictor {
     }
 
     //正式的推理主函数
-    public boolean runModel(Preprocess preprocess, Visualize visualize) {
+    public boolean runModel(Preprocess preprocess, Visualize visualize,Boolean transparent) {
         if (inputImage == null || bgImage == null) {
             return false;
         }
@@ -224,7 +224,7 @@ public class Predictor {
         Tensor outputTensor = getOutput(0);
 
         // post-process
-        this.outputImage = visualize.draw(inputImage, outputTensor,bgImage);
+        this.outputImage = visualize.draw(inputImage, outputTensor,bgImage,transparent);
         postprocessTime = (float) (end.getTime() - start.getTime());
 
         outputResult = new String();
