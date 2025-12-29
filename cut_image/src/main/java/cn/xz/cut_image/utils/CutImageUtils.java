@@ -134,11 +134,9 @@ public class CutImageUtils {
     public static void runModel() {
         pbRunModel = ProgressDialog.show(mContext, "", "推理中...", false, false);
         if (onRunModel()) {
-            Log.e("手撕TAG", "handleMessage: 消息接收33333");
             pbRunModel.dismiss();
             onRunModelSuccessed();
         } else {
-            Log.e("手撕TAG", "handleMessage: 消息接收333333");
             pbRunModel.dismiss();
             Toast.makeText(mContext, "Run model failed!", Toast.LENGTH_SHORT).show();
             onRunModelFailed();
@@ -152,11 +150,9 @@ public class CutImageUtils {
     public static void loadModel() {
         pbLoadModel = ProgressDialog.show(mContext, "", "加载模型中...", false, false);
         if (onLoadModel()) {
-            Log.e("手撕TAG", "手撕handleMessage: 消息接收1111");
             pbLoadModel.dismiss();
             onLoadModelSuccessed();
         } else {
-            Log.e("手撕TAG", "手撕handleMessage: 消息接收22222");
             pbLoadModel.dismiss();
             Toast.makeText(mContext, "Load model failed!", Toast.LENGTH_SHORT).show();
             onLoadModelFailed();
@@ -215,7 +211,6 @@ public class CutImageUtils {
      */
     @SuppressLint("ResourceAsColor")
     public static void onRunModelSuccessed() {
-        Log.e("手撕TAG", "手撕handleMessage: 消息接收识别成功");
         // 获取抠图结果并更新UI
         Bitmap outputImage = predictor.outputImage();
         if (outputImage != null) {

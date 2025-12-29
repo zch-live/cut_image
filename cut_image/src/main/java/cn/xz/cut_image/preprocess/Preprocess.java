@@ -44,7 +44,6 @@ public class Preprocess {
             } else if (config.inputColorFormat.equalsIgnoreCase("BGR")) {
                 channelIdx = new int[]{2, 1, 0};
             } else {
-                Log.e("手撕TAG", "手撕handleMessage: 识别失败22222");
                 return false;
             }
             int[] channelStride = new int[]{width * height, width * height * 2};
@@ -68,7 +67,6 @@ public class Preprocess {
                 }
             }
         } else {
-            Log.e("手撕TAG", "手撕handleMessage: 识别失败1111");
             return false;
         }
         return true;

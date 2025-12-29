@@ -122,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
                                 output_Image.post(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Log.e("手撕TAG", "手撕handleMessage: 消息接收识别成功-----" + time);
                                         mBitmap = outputImage;
                                         input_Image.setImageBitmap(mBitmap);
                                         output_Image.setImageBitmap(inputImage);
